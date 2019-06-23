@@ -15,6 +15,7 @@ namespace GraphVisualizer
         private PlayableGraph m_CurrentGraph;
         private GraphSettings m_GraphSettings;
 
+        // for nodes...
 #region Configuration
 
         private static readonly float s_ToolbarHeight = 17f;
@@ -161,6 +162,8 @@ namespace GraphVisualizer
             m_Renderer.Draw(m_Layout, graphRect, m_GraphSettings);
         }
 
+        // Receive the PlayableGraphs at runtime from the GraphVisualizerClient singleton
+        // Also within the Editor during OnGUI()
         private List<PlayableGraph> GetGraphList()
         {
             var selectedGraphs = new List<PlayableGraph>();
