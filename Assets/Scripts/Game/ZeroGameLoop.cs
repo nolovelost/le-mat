@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine.UI;
 
-
+// Use this as a template IGameLoop class
 public class ZeroGameLoop : Game.IGameLoop
 {
     enum ZeroGameState
@@ -80,11 +80,19 @@ public class ZeroGameLoop : Game.IGameLoop
 
         // Instantiate Kinematic Character Controller
         kinematicContainer = new GameObject("~~~ KINEMATIC CONTROLLER ~~~");
-        exampleChar = Object.Instantiate<GameObject>(Resources.Load<GameObject>("KinematicCharacter/ExampleCharacter"));
+        GameObject characterObj = Resources.Load<GameObject>("KinematicCharacter/ExampleCharacter");
+        // #TODO: Remove this hack and utilise spawn points system instead
+        characterObj.transform.position = new Vector3(0.0f, 2.0f, 0.0f);
+        if (characterObj == null)
+        {
+            Console.Write("KinematicCharacter/ExampleCharacter.prefab not found!");
+            return;
+        }
+        exampleChar = Object.Instantiate<GameObject>(characterObj);
+        Console.Write("Character Position: " + exampleChar.transform.position);
         exampleChar.AddComponent<GameObjectEntity>();
         exampleChar.transform.SetParent(kinematicContainer.transform, true);
-        // #TODO: Remove this hack and utilise spawn points system instead
-        exampleChar.transform.position = new Vector3(0.0f, 2.0f, 0.0f);
+        Object.Destroy(characterObj);
     }
 
     void LeaveActiveState()
