@@ -78,21 +78,22 @@ public class ZeroGameLoop : Game.IGameLoop
     {
         Game.SetMousePointerLock(true);
 
+#if THIRDPARTY_SUPPORT  // #NOTE: Set to false if there is not 'ThirdParty' folder in Assets/
         // Instantiate Kinematic Character Controller
         kinematicContainer = new GameObject("~~~ KINEMATIC CONTROLLER ~~~");
-        GameObject characterObj = Resources.Load<GameObject>("KinematicCharacter/ExampleCharacter");
-        // #TODO: Remove this hack and utilise spawn points system instead
-        characterObj.transform.position = new Vector3(0.0f, 2.0f, 0.0f);
+        Object characterObj = Resources.Load<Object>("KinematicCharacter/ExampleCharacter");
         if (characterObj == null)
         {
             Console.Write("KinematicCharacter/ExampleCharacter.prefab not found!");
             return;
         }
-        exampleChar = Object.Instantiate<GameObject>(characterObj);
+        exampleChar = Object.Instantiate<GameObject>(characterObj as GameObject);
+        // #TODO: Remove this hack and utilise spawn points system instead
+        exampleChar.transform.position = new Vector3(0.0f, 2.0f, 0.0f);
         Console.Write("Character Position: " + exampleChar.transform.position);
         exampleChar.AddComponent<GameObjectEntity>();
         exampleChar.transform.SetParent(kinematicContainer.transform, true);
-        Object.Destroy(characterObj);
+#endif
     }
 
     void LeaveActiveState()
