@@ -3,8 +3,6 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
-Assets/AssetStoreTools*
-Assets/_elements
 
 # Visual Studio cache directory
 .vs/
@@ -41,6 +39,7 @@ game.log
 
 # ThirdParty Assets
 /Assets/ThirdParty*
+/Assets/Scripts/Character/Player/KinematicPlayer*
 
 # HDRP Example Folder
 /Assets/HDRP_example*

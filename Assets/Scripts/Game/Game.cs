@@ -77,16 +77,6 @@ public struct GameTime
     int m_tickRate;
 }
 
-public class EnumeratedArrayAttribute : PropertyAttribute
-{
-    public readonly string[] names;
-    public EnumeratedArrayAttribute(Type enumtype)
-    {
-        names = Enum.GetNames(enumtype);
-    }
-}
-
-
 [DefaultExecutionOrder(-1000)]
 public class Game : MonoBehaviour
 {
@@ -153,7 +143,7 @@ public class Game : MonoBehaviour
     public event UpdateDelegate endUpdateEvent;
 
     // CVars
-    [ConfigVar(Name = "server.tickrate", DefaultValue = "60", Description = "Tickrate for server", Flags = ConfigVar.Flags.PrimeInfo)]
+    [ConfigVar(Name = "server.tickrate", DefaultValue = "60", Description = "Processing Tickrate", Flags = ConfigVar.Flags.PrimeInfo)]
     public static ConfigVar primeTickRate;
 
     [ConfigVar(Name = "config.fov", DefaultValue = "60", Description = "Field of view", Flags = ConfigVar.Flags.Save)]
@@ -168,17 +158,8 @@ public class Game : MonoBehaviour
     [ConfigVar(Name = "debug.catchloop", DefaultValue = "1", Description = "Catch exceptions in gameloop and pause game", Flags = ConfigVar.Flags.None)]
     public static ConfigVar debugCatchLoop;
 
-    [ConfigVar(Name = "chartype", DefaultValue = "-1", Description = "Character to start with (-1 uses default character)")]
-    public static ConfigVar characterType;
-
-    [ConfigVar(Name = "allowcharchange", DefaultValue = "1", Description = "Is changing character allowed")]
-    public static ConfigVar allowCharChange;
-
     [ConfigVar(Name = "debug.cpuprofile", DefaultValue = "0", Description = "Profile and dump cpu usage")]
     public static ConfigVar debugCpuProfile;
-
-    [ConfigVar(Name = "net.dropevents", DefaultValue = "0", Description = "Drops a fraction of all packages containing events!!")]
-    public static ConfigVar netDropEvents;
 
     public static readonly string k_BootConfigFilename = "boot.cfg";
     public static double frameTime;
