@@ -3,7 +3,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine.Rendering;
+#if !UNITY_STANDALONE_LINUX     // Linux doesn't support HDRP due to OpenGL lock
 using UnityEngine.Experimental.Rendering.HDPipeline;
+#endif
 using System;
 using System.Globalization;
 using UnityEngine.Rendering.PostProcessing;

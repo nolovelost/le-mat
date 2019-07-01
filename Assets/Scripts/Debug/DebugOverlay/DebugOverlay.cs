@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
+#if !UNITY_STANDALONE_LINUX     // Linux doesn't support HDRP due to OpenGL lock
 using UnityEngine.Experimental.Rendering.HDPipeline;
+#endif
 using UnityEngine.Rendering;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -481,6 +483,7 @@ public class DebugOverlay : MonoBehaviour
         Graphics.DrawProceduralNow(MeshTopology.Triangles, m_NumQuadsToDraw * 6, 1);
     }
 
+#if !UNITY_STANDALONE_LINUX     // Linux doesn't support HDRP due to OpenGL lock
     public static void Render(HDCamera hdCamera, CommandBuffer cmd)
     {
         if (!instance)
@@ -511,6 +514,7 @@ public class DebugOverlay : MonoBehaviour
             m_line3DBuffer.HDDraw(cmd);
         }
     }
+#endif
 
     unsafe void AddLine(float x1, float y1, float x2, float y2, Vector4 col)
     {
