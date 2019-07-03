@@ -32,7 +32,7 @@ namespace GraphVisualizer
 
                 AnimationClipNode infoNode = null;
                 AnimationClipGraphManager.instance.playableNodes.TryGetValue(acp, out infoNode);
-                sb.AppendLine(InfoString("Clip Name:", clip ? infoNode.name : "NA"));
+                sb.AppendLine(InfoString("Clip Name:", infoNode != null ? infoNode.name : "NA"));
             }
 
             return sb.ToString();
