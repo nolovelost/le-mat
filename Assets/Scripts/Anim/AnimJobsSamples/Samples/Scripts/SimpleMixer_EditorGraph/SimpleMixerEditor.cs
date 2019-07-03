@@ -56,12 +56,8 @@ public class SimpleMixerEditor : MonoBehaviour
         m_CustomMixerPlayable = AnimationScriptPlayable.Create(m_Graph, job);
         m_CustomMixerPlayable.SetProcessInputs(false);
 
-        AnimationClipPlayable idlePlayable = AnimationClipPlayable.Create(m_Graph, idleClip);
-        AnimationClipPlayable romPlayable = AnimationClipPlayable.Create(m_Graph, romClip);
-        AnimationClipNode idleNode = new AnimationClipNode("idle animation node");
-        //AnimationClipNode romNode = new AnimationClipNode("rom animation node");
-        AnimationClipGraphManager.instance.RegisterNode(idlePlayable, idleNode);
-        //AnimationClipGraphManager.instance.RegisterNode(romPlayable, romNode);
+        AnimationClipPlayable idlePlayable = CreateAnimationPlayableClip(m_Graph, idleClip);
+        AnimationClipPlayable romPlayable = CreateAnimationPlayableClip(m_Graph, romClip);
 
         m_CustomMixerPlayable.AddInput(idlePlayable, 0, 1.0f);
         m_CustomMixerPlayable.AddInput(romPlayable, 0, 1.0f);
@@ -73,6 +69,23 @@ public class SimpleMixerEditor : MonoBehaviour
 
         emptyGraph = PlayableGraph.Create("EmptyGraph");
         emptyGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+    }
+
+    AnimationClipPlayable CreateAnimationPlayableClip(PlayableGraph graph, AnimationClip clip)
+    {
+        AnimationClipPlayable playableClip = AnimationClipPlayable.Create(graph, clip);
+        AnimationClipInfo info = new AnimationClipInfo();
+        info = new AnimationClipInfo();
+        info.clipName = clip.name;
+        AnimationClipGraphManager.instance.RegisterNode(playableClip, info);
+        return playableClip;
+    }
+
+    AnimationClipPlayable CreateAnimationPlayableClip(PlayableGraph graph, AnimationClip clip, AnimationClipInfo info)
+    {
+        AnimationClipPlayable playableClip = AnimationClipPlayable.Create(graph, clip);
+        AnimationClipGraphManager.instance.RegisterNode(playableClip, info);
+        return playableClip;
     }
 
     void Update()

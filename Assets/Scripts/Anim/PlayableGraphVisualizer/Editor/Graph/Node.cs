@@ -12,6 +12,7 @@ namespace GraphVisualizer
         public bool active { get; private set; }
         public Node parent { get; private set; }
         public IList<Node> children { get; private set; }
+        public AnimationClipInfo playableInfo;
 
         public Node(object content, float weight = 1.0f, bool active = false)
         {
@@ -50,6 +51,20 @@ namespace GraphVisualizer
         {
             Type type = GetContentType();
             return type == null ? "Null" : type.ToString();
+        }
+
+        public virtual string GetDetailedTypeInfo()
+        {
+            string type = GetContentTypeShortName();
+            string detailedInfo = type + "(NA)";
+            return detailedInfo;
+        }
+
+        public virtual string GetDetailedLabel()
+        {
+            string type = GetContentTypeShortName();
+            string detailedInfo = "---" + type + "---";
+            return detailedInfo;
         }
 
         public virtual string GetContentTypeShortName()

@@ -9,6 +9,7 @@ namespace GraphVisualizer
         public AnimationClipPlayableNode(Playable content, float weight = 1.0f)
             : base(content, weight)
         {
+            AnimationClipGraphManager.instance.playableInfo.TryGetValue((AnimationClipPlayable)content, out base.playableInfo);
         }
 
         public override string ToString()
@@ -30,9 +31,9 @@ namespace GraphVisualizer
                 sb.AppendLine(InfoString("ApplyFootIK", acp.GetApplyFootIK()));
                 sb.AppendLine(InfoString("ApplyPlayableIK", acp.GetApplyPlayableIK()));
 
-                AnimationClipNode infoNode = null;
-                AnimationClipGraphManager.instance.playableNodes.TryGetValue(acp, out infoNode);
-                sb.AppendLine(InfoString("Clip Name:", infoNode != null ? infoNode.name : "NA"));
+                AnimationClipInfo infoNode;
+                AnimationClipGraphManager.instance.playableInfo.TryGetValue(acp, out infoNode);
+                sb.AppendLine(InfoString("Clip Name:", infoNode.clipName != null ? infoNode.clipName : "NA"));
             }
 
             return sb.ToString();

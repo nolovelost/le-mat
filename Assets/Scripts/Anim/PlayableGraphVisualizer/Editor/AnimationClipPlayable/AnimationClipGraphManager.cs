@@ -20,10 +20,10 @@ public class AnimationClipGraphManager
         }
     }
 
-    public Dictionary<AnimationClipPlayable, AnimationClipNode> playableNodes = new Dictionary<AnimationClipPlayable, AnimationClipNode>();
+    public Dictionary<AnimationClipPlayable, AnimationClipInfo> playableInfo = new Dictionary<AnimationClipPlayable, AnimationClipInfo>();
 
-    public void RegisterNode(AnimationClipPlayable playable, AnimationClipNode node)
+    public void RegisterNode(AnimationClipPlayable playable, AnimationClipInfo info)
     {
-        playableNodes.Add(playable, node);
+        playableInfo.Add(playable, info);
     }
 }

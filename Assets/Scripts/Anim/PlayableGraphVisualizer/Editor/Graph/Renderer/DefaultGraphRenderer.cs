@@ -43,6 +43,7 @@ namespace GraphVisualizer
         {
             public Color color;
             public string label;
+            public string detailedLabel;
         }
 
         public DefaultGraphRenderer()
@@ -149,7 +150,8 @@ namespace GraphVisualizer
                 if (v.node == null)
                     continue;
 
-                string nodeType = v.node.GetContentTypeName();
+                //string nodeType = v.node.GetContentTypeName();
+                string nodeType = v.node.GetDetailedTypeInfo();
 
                 if (m_LegendForType.ContainsKey(nodeType))
                     continue;
@@ -157,7 +159,8 @@ namespace GraphVisualizer
                 m_LegendForType[nodeType] = new NodeTypeLegend
                 {
                     label = v.node.GetContentTypeShortName(),
-                    color = v.node.GetColor()
+                    color = v.node.GetColor(),
+                    detailedLabel = v.node.GetDetailedLabel()
                 };
             }
         }
@@ -457,9 +460,10 @@ namespace GraphVisualizer
         // Draw a node an return true if it has been clicked
         private void DrawNode(Rect nodeRect, Node node, bool selected)
         {
-            string nodeType = node.GetContentTypeName();
+            //string nodeType = node.GetContentTypeName();
+            string nodeType = node.GetDetailedTypeInfo();
             NodeTypeLegend nodeTypeLegend = m_LegendForType[nodeType];
-            string formattedLabel = Regex.Replace(nodeTypeLegend.label, "((?<![A-Z])\\B[A-Z])", "\n$1"); // Split into multi-lines
+            string formattedLabel = Regex.Replace(nodeTypeLegend.detailedLabel, "((?<![A-Z])\\B[A-Z])", "\n$1"); // Split into multi-lines
 
             DrawRect(nodeRect, nodeTypeLegend.color, formattedLabel, node.active, selected);
         }

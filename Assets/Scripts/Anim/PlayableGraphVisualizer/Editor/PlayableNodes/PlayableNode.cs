@@ -34,6 +34,20 @@ namespace GraphVisualizer
             return string.IsNullOrEmpty(cleanName) ? shortName : cleanName;
         }
 
+        public override string GetDetailedTypeInfo()
+        {
+            string type = GetContentTypeShortName();
+            string detailedInfo = type + playableInfo.clipName;
+            return detailedInfo;
+        }
+
+        public override string GetDetailedLabel()
+        {
+            string type = GetContentTypeShortName();
+            string detailedInfo = type + playableInfo.clipName;
+            return detailedInfo;
+        }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
