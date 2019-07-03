@@ -29,6 +29,10 @@ namespace GraphVisualizer
                 }
                 sb.AppendLine(InfoString("ApplyFootIK", acp.GetApplyFootIK()));
                 sb.AppendLine(InfoString("ApplyPlayableIK", acp.GetApplyPlayableIK()));
+
+                AnimationClipNode infoNode = null;
+                AnimationClipGraphManager.instance.playableNodes.TryGetValue(acp, out infoNode);
+                sb.AppendLine(InfoString("Clip Name:", clip ? infoNode.name : "NA"));
             }
 
             return sb.ToString();

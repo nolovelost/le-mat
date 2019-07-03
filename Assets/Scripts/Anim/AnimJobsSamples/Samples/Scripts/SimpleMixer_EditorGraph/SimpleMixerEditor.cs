@@ -55,8 +55,16 @@ public class SimpleMixerEditor : MonoBehaviour
 
         m_CustomMixerPlayable = AnimationScriptPlayable.Create(m_Graph, job);
         m_CustomMixerPlayable.SetProcessInputs(false);
-        m_CustomMixerPlayable.AddInput(AnimationClipPlayable.Create(m_Graph, idleClip), 0, 1.0f);
-        m_CustomMixerPlayable.AddInput(AnimationClipPlayable.Create(m_Graph, romClip), 0, 1.0f);
+
+        AnimationClipPlayable idlePlayable = AnimationClipPlayable.Create(m_Graph, idleClip);
+        AnimationClipPlayable romPlayable = AnimationClipPlayable.Create(m_Graph, romClip);
+        AnimationClipNode idleNode = new AnimationClipNode("idle animation node");
+        AnimationClipNode romNode = new AnimationClipNode("rom animation node");
+        AnimationClipGraphManager.instance.RegisterNode(idlePlayable, idleNode);
+        AnimationClipGraphManager.instance.RegisterNode(romPlayable, romNode);
+
+        m_CustomMixerPlayable.AddInput(idlePlayable, 0, 1.0f);
+        m_CustomMixerPlayable.AddInput(romPlayable, 0, 1.0f);
 
         var output = AnimationPlayableOutput.Create(m_Graph, "output", animator);
         output.SetSourcePlayable(m_CustomMixerPlayable);

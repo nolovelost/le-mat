@@ -1,6 +1,6 @@
 {
     "name": "Unity.Animation.JobsSamples",
-    "references": [],
+    "references": [ "Unity.PlayableGraphVisualizer.Editor" ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
